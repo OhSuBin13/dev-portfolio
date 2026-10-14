@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="오수빈 | 배포·운영 자동화 개발자 포트폴리오">
+<title>오수빈 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: 참고 포트폴리오 구성 — 플로팅 pill 내비 → 히어로 → 핵심역량 3열 → 기술 필터 그리드 → 경험 타임라인 → 프로젝트 카드+모달 → 수상/자격증 타임라인 → 교육 → 다크 연락처 */
+:root{
+  --accent:#e8562d; --accent-soft:#fbe9e2; --gold:#c98a0c; --gold-soft:#fbeecb;
+  --ink:#1f2733; --ink-soft:#626b78; --ink-mid:#3a4250;
+  --bg:#f4f5f7; --card:#ffffff; --line:#e4e6eb; --chip:#f1f2f5; --dot:#c3c8d0;
+  --hero:#fbfbfc; --foot:#0e0f11; --foot-2:#1c1d20; --foot-ink:#9aa0ab;
+  --shadow:rgba(20,22,30,.06);
+  --f-display:'Noto Sans KR',system-ui,sans-serif;
+  --f-body:'Noto Sans KR',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --accent:#ff7a52; --accent-soft:#3a2219; --gold:#e9b443; --gold-soft:#3a2f14;
+  --ink:#eceef2; --ink-soft:#9aa2ae; --ink-mid:#c7ccd4;
+  --bg:#121417; --card:#1b1e23; --line:#2b2f36; --chip:#24272d; --dot:#4b515c;
+  --hero:#15171b; --foot:#0a0b0d; --foot-2:#191a1d; --foot-ink:#8d939e;
+  --shadow:rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --accent:#ff7a52; --accent-soft:#3a2219; --gold:#e9b443; --gold-soft:#3a2f14;
+  --ink:#eceef2; --ink-soft:#9aa2ae; --ink-mid:#c7ccd4;
+  --bg:#121417; --card:#1b1e23; --line:#2b2f36; --chip:#24272d; --dot:#4b515c;
+  --hero:#15171b; --foot:#0a0b0d; --foot-2:#191a1d; --foot-ink:#8d939e;
+  --shadow:rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:15px}
+body.locked{overflow:hidden}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:88px}
+.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.14em;font-size:13px;text-align:center;margin-bottom:12px}
+.section-title{text-align:center;font-family:var(--f-display);font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:-.02em;text-wrap:balance}
+.section-sub{text-align:center;color:var(--ink-soft);margin-top:10px}
+.gap-lg{height:44px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* nav */
+nav{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 18px 8px 16px;box-shadow:0 10px 30px var(--shadow);max-width:calc(100vw - 24px)}
+.lights{display:flex;gap:6px;padding-right:12px;margin-right:4px;border-right:1px solid var(--line)}
+.lights span{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.lights span:nth-child(2){opacity:.6}.lights span:nth-child(3){opacity:.3}
+nav a{text-decoration:none;font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}
+nav a:hover{color:var(--accent)}
+nav a.active{background:var(--accent);color:#fff}
+@media(max-width:560px){nav{padding:6px 8px;gap:0}.lights{display:none}nav a{font-size:12.5px;padding:6px 9px}}
+
+/* hero */
+.hero{text-align:center;padding-block:170px 110px;background:radial-gradient(560px 380px at 14% 18%,color-mix(in srgb,var(--accent) 11%,transparent),transparent 62%),radial-gradient(480px 380px at 82% 70%,color-mix(in srgb,var(--accent) 8%,transparent),transparent 62%),var(--hero)}
+.hero h1{font-family:var(--f-display);font-size:clamp(38px,7.4vw,78px);font-weight:900;line-height:1.14;letter-spacing:-.035em;text-wrap:balance}
+.hero h1 .accent{color:var(--accent)}
+.hero p{color:var(--ink-soft);font-size:clamp(15px,2vw,18px);margin-top:28px;line-height:1.75}
+.socials{display:flex;gap:14px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+.socials a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:500;font-size:14px;color:var(--ink-soft);padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);transition:color .2s,border-color .2s,transform .2s}
+.socials a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+.socials svg{width:18px;height:18px}
+
+/* competencies */
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.comp-card .thumb{height:200px;border-radius:16px;overflow:hidden;margin-bottom:20px;background:var(--card);border:1px solid var(--line)}
+.comp-card .thumb.dark{background:#161d29;border-color:#161d29}
+.comp-card .thumb svg{width:100%;height:100%;display:block;transition:transform .4s ease}
+.comp-card:hover .thumb svg{transform:scale(1.04)}
+.comp-tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.comp-card h3{font-size:20px;font-weight:700;margin-bottom:12px}
+.comp-card p{color:var(--ink-soft);line-height:1.8}
+
+/* tech */
+.filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:40px}
+.filters button{background:var(--card);border:1px solid var(--line);padding:10px 22px;border-radius:999px;font:inherit;font-weight:500;color:var(--ink);cursor:pointer;transition:all .18s}
+.filters button:hover{border-color:var(--accent);color:var(--accent)}
+.filters button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tech-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:16px}
+.logo{width:58px;height:58px;border-radius:14px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.logo svg{width:32px;height:32px;display:block}
+.logo .mono{width:40px;height:40px;font-size:13px}
+.tech-card{background:var(--card);border-radius:16px;aspect-ratio:1/1;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;box-shadow:0 4px 18px var(--shadow);transition:transform .3s cubic-bezier(.22,1,.36,1),opacity .3s,box-shadow .3s;padding:8px;text-align:center}
+.tech-card:hover{transform:translateY(-4px)}
+.tech-card.dim{opacity:.28;transform:scale(.95)}
+.tech-card.pick{box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 22%,transparent);transform:translateY(-5px)}
+.mono{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-weight:700;font-size:15px;color:#fff;letter-spacing:-.02em}
+.tech-card span{font-size:13.5px;font-weight:500;line-height:1.3}
+.tech-card small{font-size:11px;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:1000px){.tech-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){.tech-grid{grid-template-columns:repeat(3,1fr);gap:10px}.logo{width:48px;height:48px}.logo svg{width:26px;height:26px}}
+
+/* timeline */
+.timeline{position:relative;max-width:880px;margin:0 auto;padding-left:56px}
+.timeline::before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:46px}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-49px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.tl-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.tl-date{background:var(--accent-soft);color:var(--accent);font-family:var(--f-mono);font-weight:700;font-size:12.5px;padding:4px 12px;border-radius:999px;font-variant-numeric:tabular-nums}
+.tl-org{font-size:19px;font-weight:700}
+.tl-role{font-weight:500;margin-bottom:6px}
+.tl-desc{color:var(--ink-soft);line-height:1.7;margin-bottom:12px;max-width:62ch}
+.bul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.bul li{position:relative;padding-left:18px;color:var(--ink-soft);line-height:1.6}
+.bul li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--dot)}
+
+/* projects */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px}
+.proj-card{background:var(--card);border-radius:20px;padding:26px;box-shadow:0 4px 20px var(--shadow);transition:transform .18s,box-shadow .18s;cursor:pointer;display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit;border:1px solid transparent}
+.proj-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px var(--shadow);border-color:var(--line)}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.proj-icon{width:54px;height:54px;border-radius:15px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-weight:700;font-size:17px}
+.proj-badge{background:var(--gold-soft);color:var(--gold);font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:999px}
+.proj-card h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.proj-card .tagline{color:var(--accent);font-weight:500;font-size:14px;margin-bottom:14px}
+.proj-card .body{color:var(--ink-soft);font-size:14px;line-height:1.7;margin-bottom:20px;flex:1}
+.proj-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--f-mono);font-size:12px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px}
+.proj-meta .more{color:var(--accent);font-family:var(--f-body);font-weight:700;font-size:13px}
+@media(max-width:900px){.comp-grid,.proj-grid{grid-template-columns:1fr}}
+
+/* awards / certs */
+.subhead{display:flex;align-items:center;gap:12px;max-width:880px;margin:0 auto 30px;font-size:22px;font-weight:700}
+.subhead .badge{width:38px;height:38px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.subhead .badge svg{width:20px;height:20px}
+.grade{display:inline-block;background:var(--gold-soft);color:var(--gold);font-weight:700;font-size:13px;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.cert-tl .tl-item::before{border-color:var(--dot);width:14px;height:14px;left:-48px}
+.cert-date{background:var(--chip);color:var(--ink-soft);font-family:var(--f-mono);font-weight:700;font-size:12.5px;padding:4px 12px;border-radius:8px}
+.cert-org{color:var(--ink-soft);font-size:14px}
+
+/* education */
+.edu-row{display:grid;grid-template-columns:220px 1fr;gap:28px;max-width:880px;margin:0 auto 46px}
+.edu-row:last-child{margin-bottom:0}
+.edu-when .date{font-family:var(--f-mono);font-weight:700;display:block;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.edu-when .tag{font-size:13px;color:var(--ink-soft)}
+.edu-body{min-width:0}
+.edu-body h3{font-size:19px;font-weight:700;margin-bottom:4px}
+.edu-body .major{color:var(--ink-soft);margin-bottom:12px}
+@media(max-width:640px){.edu-row{grid-template-columns:1fr;gap:8px}}
+
+/* contact */
+.contact{background:var(--foot);color:#fff;text-align:center;padding-block:100px 36px}
+.contact h2{font-size:clamp(28px,5vw,42px);font-weight:900;margin-bottom:22px;letter-spacing:-.02em}
+.contact p.lead{color:var(--foot-ink);line-height:1.8;margin-bottom:40px}
+.contact-methods{display:flex;gap:18px 44px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.cm{display:flex;align-items:center;gap:14px;font-size:16px;text-align:left;min-width:0}
+.cm .cm-ic{width:48px;height:48px;border-radius:50%;background:var(--foot-2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cm svg{width:20px;height:20px}
+.cm .val{user-select:all;word-break:break-all}
+.cm a{text-decoration:none}
+.cm a:hover{color:var(--accent)}
+.copy{margin-left:6px;background:var(--foot-2);border:1px solid #2c2d31;color:var(--foot-ink);font:inherit;font-size:12px;padding:5px 10px;border-radius:8px;cursor:pointer}
+.copy:hover{color:#fff}
+.copyright{border-top:1px solid #232326;padding-top:28px;color:#6b7078;font-size:13px}
+
+/* modal */
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(14,16,22,.58);display:flex;align-items:flex-start;justify-content:center;padding:calc(48px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{position:relative;background:var(--card);border-radius:22px;width:100%;max-width:900px;max-height:calc(100vh - 96px);overflow-y:auto;padding:42px 46px;transform:translateY(16px) scale(.985);transition:transform .25s;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.overlay.open .modal{transform:none}
+.m-close{position:absolute;top:14px;right:18px;width:40px;height:40px;border:none;background:transparent;color:var(--ink-soft);font-size:26px;cursor:pointer;border-radius:10px;line-height:1}
+.m-close:hover{background:var(--chip);color:var(--ink)}
+.m-icon{width:68px;height:68px;border-radius:18px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-weight:700;font-size:21px;margin-bottom:20px}
+.m-title{font-size:32px;font-weight:900;letter-spacing:-.02em;margin-bottom:6px;text-wrap:balance}
+.m-tagrow{display:flex;align-items:center;gap:12px;margin-bottom:30px;flex-wrap:wrap}
+.m-tagline{font-size:16px;color:var(--ink-soft);font-weight:500}
+.m-link{display:inline-flex;align-items:center;gap:6px;color:var(--ink-soft);text-decoration:none;font-size:13px;font-weight:700;border:1px solid var(--line);padding:5px 10px;border-radius:8px}
+.m-link:hover{color:var(--accent);border-color:var(--accent)}
+.m-link svg{width:16px;height:16px}
+.m-meta{display:flex;gap:24px 60px;flex-wrap:wrap;margin-bottom:28px}
+.m-meta .label,.m-label{color:var(--ink-soft);font-size:13.5px;font-weight:500;margin-bottom:8px}
+.m-meta .val{font-size:16px;font-weight:700}
+.m-summary{font-size:16px;line-height:1.75;font-weight:500;margin-bottom:28px}
+.m-role{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.m-role li{position:relative;padding-left:22px;line-height:1.6;color:var(--ink-mid)}
+.m-role li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:3px;background:var(--accent)}
+.m-stack{display:flex;gap:8px;flex-wrap:wrap}
+.m-stack span{height:34px;padding:0 13px;border-radius:10px;background:var(--chip);border:1px solid var(--line);display:flex;align-items:center;font-size:13px;font-weight:700}
+.m-div{height:1px;background:var(--line);margin:32px 0}
+.m-sec{font-size:22px;font-weight:700;margin-bottom:16px}
+.m-overview p{line-height:1.85;color:var(--ink-mid);margin-bottom:14px;max-width:68ch}
+.m-detail{display:flex;gap:14px;margin-bottom:22px}
+.m-detail .num{color:var(--ink-soft);font-family:var(--f-mono);font-weight:700;min-width:26px}
+.m-detail h4{font-size:17px;font-weight:700;margin-bottom:10px}
+.m-detail>div{min-width:0}
+.m-awards-title{color:var(--gold);font-weight:700;letter-spacing:.06em;font-size:14px;margin-bottom:12px}
+.m-awards{list-style:none}
+.m-awards li{position:relative;padding-left:18px;font-weight:500}
+.m-awards li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+@media(max-width:640px){.modal{padding:30px 20px}.m-title{font-size:25px}.m-meta{gap:18px 32px}}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<nav id="nav" aria-label="섹션 이동">
+  <div class="lights" aria-hidden="true"><span></span><span></span><span></span></div>
+  <a href="#tech">기술</a><a href="#experience">경험</a><a href="#projects">프로젝트</a><a href="#awards">수상</a><a href="#education">교육</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <h1>안녕하세요,<br><span class="accent">배포를 자동화하는</span><br>오수빈입니다.</h1>
+    <p>서버 배포와 기기 연동, 데이터 수집까지 서비스가 돌아가는 기반을 다뤄 왔습니다.<br>반복되는 운영 작업을 스크립트와 파이프라인으로 바꾸는 일을 지향합니다.</p>
+    <div class="socials" id="heroSocials"></div>
+  </div>
+</header>
+
+<section id="competencies"><div class="wrap">
+  <p class="eyebrow">CORE COMPETENCIES</p>
+  <h2 class="section-title">서비스가 안정적으로 돌아가는 기반을 만듭니다.</h2>
+  <div class="gap-lg"></div>
+  <div class="comp-grid" id="compGrid"></div>
+</div></section>
+
+<section id="tech"><div class="wrap">
+  <p class="eyebrow">TECH STACK</p>
+  <h2 class="section-title">기술 스택</h2>
+  <p class="section-sub">실제 프로젝트에서 사용한 기술만 담았습니다.</p>
+  <div class="gap-lg"></div>
+  <div class="filters" id="techFilters" role="group" aria-label="기술 분류"></div>
+  <div class="tech-grid" id="techGrid"></div>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <p class="eyebrow">EXPERIENCE</p>
+  <h2 class="section-title">경험</h2>
+  <div class="gap-lg"></div>
+  <div class="timeline" id="expTimeline"></div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <p class="eyebrow">PROJECTS</p>
+  <h2 class="section-title">프로젝트 경험</h2>
+  <p class="section-sub">카드를 누르면 프로젝트 상세를 볼 수 있습니다.</p>
+  <div class="proj-grid" id="projGrid"></div>
+</div></section>
+
+<section id="awards"><div class="wrap">
+  <p class="eyebrow">AWARDS &amp; CERTIFICATES</p>
+  <h2 class="section-title">수상 및 자격증</h2>
+  <div class="gap-lg"></div>
+  <div class="subhead"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0z"/><path d="M17 5h3v2a3 3 0 01-3 3M7 5H4v2a3 3 0 003 3"/></svg></span>Awards</div>
+  <div class="timeline" id="awardTimeline"></div>
+  <div class="gap-lg"></div>
+  <div class="subhead"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8.2 14.5L7 22l5-3 5 3-1.2-7.5"/></svg></span>Certificates</div>
+  <div class="timeline cert-tl" id="certTimeline"></div>
+</div></section>
+
+<section id="education"><div class="wrap">
+  <p class="eyebrow">EDUCATION</p>
+  <h2 class="section-title">교육</h2>
+  <div class="gap-lg"></div>
+  <div id="eduList"></div>
+</div></section>
+
+<footer class="contact" id="contact"><div class="wrap">
+  <p class="eyebrow">CONTACT</p>
+  <h2>읽어주셔서 감사합니다.</h2>
+  <p class="lead">운영에서 겪은 불편은 자동화로 바꾸고, 팀과 꾸준히 소통하며 맡은 시스템을 끝까지 책임지겠습니다.<br>궁금한 점이 있으시다면 언제든 연락주세요.</p>
+  <div class="contact-methods" id="contactMethods"></div>
+  <div class="copyright">© 2026 오수빈. All rights reserved.</div>
+</div></footer>
+
+<div class="overlay" id="overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="m-close" id="mClose" aria-label="닫기">&times;</button>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  profile:{
+    email:"dhtnqls7240485@gmail.com",
+    github:"https://github.com/OhSuBin13",
+    githubId:"OhSuBin13"
+  },
+  competencies:[
+    {theme:"light",art:"deploy",title:"빌드·배포 자동화",tag:"빌드/배포 자동화 경험",
+     desc:"PRIMERO에서 GCP 서버에 이미지를 직접 빌드·업로드하며 배포 시간이 반복적으로 소모되는 문제를 겪었습니다. 다음 프로젝트인 INHA-EEUM에서는 Jenkins 서버를 직접 구축하고 GitHub Actions와 연결해 AWS 배포 파이프라인을 만들어 같은 수작업을 없앴습니다."},
+    {theme:"dark",art:"iot",title:"Linux 서버 운영과 네트워크 연동",tag:"Linux · 운영 · 네트워크",
+     desc:"AWS EC2 Linux 서버에 SSH로 접속해 서비스를 배포하고 관리했습니다. ESP32 센서 데이터를 MQTT로 전송해 FastAPI에서 받아 TimescaleDB에 저장하는 흐름을 운영했고, 라즈베리파이와 서버 간 통신을 연결했습니다. 운영 중 불필요한 클라우드 비용을 경험하며 비용까지 보는 시각을 얻었습니다."},
+    {theme:"light",art:"search",title:"Python 스크립트와 실행 환경 구성",tag:"스크립트 언어 활용",
+     desc:"Python으로 데이터 전처리, 외부 OpenAPI 연동, 모델 평가 스크립트를 작성해 왔습니다. MIR 프로젝트에서는 검색 도구를 실행 파일로 패키징하고 워크플로우를 자동화해, 다른 사람의 PC에서도 바로 실행되는 형태로 배포했습니다."}
+  ],
+  tech:[
+    {name:"Linux",cat:"infra",c:"#e0a800",m:"Lx",si:"siLinux"},
+    {name:"Jenkins",cat:"infra",c:"#d24939",m:"Jk",si:"siJenkins"},
+    {name:"Docker",cat:"infra",c:"#2496ed",m:"Dk",si:"siDocker",fb:"docker"},
+    {name:"AWS EC2/ECR",cat:"infra",c:"#ff9900",m:"AW",si:"siAmazonaws",fb:"aws"},
+    {name:"GCP",cat:"infra",c:"#4285f4",m:"GC",si:"siGooglecloud"},
+    {name:"MQTT",cat:"infra",c:"#660066",m:"MQ",si:"siMqtt"},
+    {name:"Python",cat:"backend",c:"#3776ab",m:"Py",si:"siPython",fb:"python"},
+    {name:"FastAPI",cat:"backend",c:"#009688",m:"FA",si:"siFastapi"},
+    {name:"Java",cat:"backend",c:"#ea2d2e",m:"Jv",si:"siOpenjdk",fb:"java"},
+    {name:"Spring Boot",cat:"backend",c:"#6db33f",m:"Sp",si:"siSpringboot",fb:"spring"},
+    {name:"PostgreSQL",cat:"database",c:"#4169e1",m:"Pg",si:"siPostgresql"},
+    {name:"TimescaleDB",cat:"database",c:"#fdb515",m:"Ts",si:"siTimescale"},
+    {name:"MySQL",cat:"database",c:"#4479a1",m:"My",si:"siMysql",fb:"mysql"},
+    {name:"Redis",cat:"database",c:"#dc382d",m:"Rd",si:"siRedis",fb:"redis"}
+  ],
+  cats:[["all","전체"],["infra","Infra · DevOps"],["backend","Language · Server"],["database","Database"]],
+  experience:[
+    {date:"2025.09 ~ 2026.02 (수료)",org:"부스트캠프 AI Tech 8기",role:"NLP 트랙",
+     desc:"NLP 모델 실험과 팀 프로젝트 중심으로 교육을 수료했습니다.",
+     points:["ODQA · 한국어 문서 질의응답: Dense Retriever, Reader fine-tuning","수능형 문제 풀이 AI Solver: 평가기 제작, TTA·Few-shot 실험","MIR · 로컬 멀티모달 검색: GUI, Vision Encoder, 실행 파일 패키징"]},
+    {date:"2025.03 ~ 2025.06",org:"INHA-EEUM",role:"IoT 실내 환경 분석 서비스 · Backend · ESP32 · CI/CD",
+     desc:"ESP32 환경 데이터를 MQTT로 수집해 FastAPI에서 처리하는 서비스에서 배포 자동화와 서버 운영을 맡았습니다.",
+     points:["Jenkins 서버 직접 구축, GitHub Actions와 연결해 AWS 배포 자동화","AWS EC2 Linux 서버를 SSH로 접속해 배포·관리","ESP32 데이터 수집·MQTT 전송, IQR 기반 이상치·결측치 탐지"]},
+    {date:"2025.03 ~ 2025.06",org:"PRIMERO",role:"폐기물 분류 · 분리수거 포인트 서비스 · GCP 배포 · 기기 연동",
+     desc:"폐기물 이미지 분류를 분리수거 기록·포인트와 연결한 서비스에서 서버 배포와 기기 연동을 맡았습니다.",
+     points:["GCP 서버 배포","라즈베리파이 센서 연동과 백엔드 통신","백엔드 PR 리뷰와 협업 도구 관리","탄소중립 아카데미 우수상 (3등) · 팀 성과"]}
+  ],
+  projects:[
+    {mono:"MIR",title:"MIR",tagline:"로컬 멀티모달 검색 도구",
+     cardBody:"로컬 텍스트·이미지·PDF를 자연어로 검색하는 도구. GUI와 Vision Encoder, 실행 파일 패키징을 맡아 모델을 사용자가 실행할 수 있는 도구로 연결했습니다.",
+     period:"2026.01.29 ~ 2026.02.08",position:"GUI · Vision Encoder · 패키징",members:"팀 프로젝트 (부스트캠프 최종 프로젝트)",
+     github:"https://github.com/OhSuBin13/pro-nlp-finalproject-nlp-08",
+     summary:"로컬 파일을 자연어로 검색하고 결과를 GUI에서 확인하는 멀티모달 검색 도구입니다. FAISS 벡터 인덱스와 SQLite 파일 메타데이터를 사용합니다.",
+     myRole:["검색 결과를 확인하는 GUI 개발","이미지 임베딩을 위한 Vision Encoder 담당","실행 파일 패키징과 워크플로우 자동화"],
+     stack:["Python","SQLite","Vision Encoder"],
+     details:[
+       {h:"요구사항 정의",b:["로컬 파일을 자연어로 검색하고 검색 결과를 확인할 수 있도록 함"]},
+       {h:"서비스 흐름",b:["파일 스캔 → 임베딩 → 벡터 검색 → GUI에서 결과 확인"]},
+       {h:"데이터 설계",b:["FAISS 벡터 인덱스와 SQLite 파일 메타데이터 사용"]},
+       {h:"회고",b:["모델 구성뿐 아니라 파일 관리와 패키징까지 연결해야 사용 가능한 도구가 된다는 점을 배움"]}
+     ],awards:[]},
+    {mono:"CSAT",title:"수능형 문제 풀이 AI Solver",tagline:"한국어 수능형 문제 풀이 모델 평가·개선",
+     cardBody:"한국어 수능형 문제를 푸는 Solver를 평가하고 개선 실험을 수행했습니다. 선택지 순서에 따른 예측 편향을 측정하고 TTA·Few-shot 결과를 비교했습니다.",
+     period:"2025.12.17 ~ 2026.01.06",position:"데이터 레이블링 · Solver 평가 · TTA 실험",members:"팀 프로젝트",
+     github:"https://github.com/OhSuBin13/pro-nlp-generationfornlp-nlp-08",
+     summary:"RAG와 Qdrant를 활용하는 팀 프로젝트에서 데이터 레이블링, Solver 평가기 제작, 모델 개선 실험을 담당했습니다.",
+     myRole:["학습·평가용 데이터 레이블링","Solver 평가기 제작","TTA, Few-shot, 파라미터 튜닝 실험과 결과 비교"],
+     stack:["Python","RAG"],
+     details:[
+       {h:"요구사항 정의",b:["한국어 수능형 문제에 대한 모델 예측을 평가하고 개선 방향을 찾음"]},
+       {h:"서비스 흐름",b:["문제 입력 → Solver 예측 → 실험별 결과 비교·평가"]},
+       {h:"실험",b:["선택지 순서에 따른 예측 편향 평가","TTA·Few-shot·파라미터 튜닝 결과 비교"]},
+       {h:"회고",b:["선택지 순서 편향과 앙상블 결과를 함께 살펴보고, 실험 결과에 근거해 개선 방향을 판단함"]}
+     ],awards:[]},
+    {mono:"QA",title:"ODQA",tagline:"한국어 문서 질의응답 시스템",
+     cardBody:"Wikipedia 문서를 검색해 질문의 답을 찾는 Retriever–Reader 시스템. Dense Retriever 개발과 Reader fine-tuning을 맡아 검색과 답변 추출을 나눠 평가했습니다.",
+     period:"2025.12.01 ~ 2025.12.11",position:"Dense Retriever · 모델 비교 · Reader fine-tuning",members:"팀 프로젝트",
+     github:"https://github.com/OhSuBin13/pro-nlp-mrc-nlp-08",
+     summary:"질문과 관련된 한국어 Wikipedia 문서를 찾고, 문서에서 답을 추출하는 Retriever–Reader 파이프라인입니다.",
+     myRole:["Dense Retriever 개발","사전학습 모델 비교","Reader fine-tuning"],
+     stack:["Python","Dense Retrieval","MRC"],
+     details:[
+       {h:"요구사항 정의",b:["질문에 관련된 문서를 찾아 문서에서 답을 추출함"]},
+       {h:"서비스 흐름",b:["질문 → Retriever 문서 검색 → Reader 답변 추출"]},
+       {h:"데이터",b:["한국어 Wikipedia 문서를 검색 대상으로 활용"]},
+       {h:"회고",b:["검색 성능과 최종 답변 성능을 구분해 개선 방향을 검토함"]}
+     ],awards:[]},
+    {mono:"EE",title:"INHA-EEUM",tagline:"IoT 실내 환경 분석 서비스",
+     cardBody:"ESP32 환경 데이터를 MQTT로 수집해 FastAPI에서 처리하는 서비스. 수동 배포를 GitHub Actions·Jenkins 기반 AWS 배포 자동화로 바꾸고, 운영 중 클라우드 비용 문제를 겪었습니다.",
+     period:"2025.03 ~ 2025.06",position:"Backend · ESP32 · CI/CD",members:"팀 프로젝트",
+     github:"https://github.com/OhSuBin13/25-1-INHA_EEUM",
+     summary:"ESP32 센서 데이터 수집, 전처리, 분석 결과 제공을 하나의 서비스로 연결한 실내 환경 분석 서비스입니다.",
+     myRole:["Jenkins 서버 직접 구축 및 GitHub Actions 연동으로 AWS 배포 자동화","AWS EC2 Linux 서버를 SSH로 접속해 배포·관리","ESP32 데이터 수집과 MQTT 전송","IQR 기반 이상치·결측치 탐지","기상청 OpenAPI 연동"],
+     stack:["Python","FastAPI","MQTT","TimescaleDB","PostgreSQL","AWS EC2","Linux","Jenkins"],
+     details:[
+       {h:"요구사항 정의",b:["센서 데이터 수집·전처리·분석 결과 제공을 하나의 서비스로 연결"]},
+       {h:"서비스 흐름",b:["ESP32 → MQTT → FastAPI 전처리 → 시계열 저장·분석 → 결과 제공"]},
+       {h:"데이터 설계",b:["TimescaleDB·PostgreSQL로 시계열 데이터 저장"]},
+       {h:"배포 자동화 · 서버 운영",b:["Jenkins 서버를 직접 구축하고 GitHub Actions와 연결해 수동 배포의 반복 작업을 자동화","AWS EC2 Linux 서버에 SSH로 접속해 배포·관리"]},
+       {h:"회고",b:["불필요한 클라우드 비용과 단일 장소 데이터의 한계를 경험","비용과 데이터 범위를 함께 고려해야 한다는 점을 배움","여러 장소로 분석을 확장하는 것이 후속 과제"]}
+     ],awards:[]},
+    {mono:"PR",title:"PRIMERO",tagline:"폐기물 분류 · 분리수거 포인트 서비스",
+     cardBody:"폐기물 이미지 분류를 분리수거 기록·포인트와 연결한 서비스. GCP 서버 배포와 라즈베리파이·서버 통신, 백엔드 PR 리뷰를 맡았고 팀이 탄소중립 아카데미 우수상을 받았습니다.",
+     period:"2025.03 ~ 2025.06",position:"GCP 배포 · Raspberry Pi 연동 · BE 리뷰",members:"팀 프로젝트 (INHArit)",
+     github:"https://github.com/OhSuBin13/25-1-PRIMERO",
+     summary:"학교 내 혼합 배출 문제를 줄이기 위해 폐기물 촬영·분류 결과를 분리수거 기록과 포인트로 연결한 서비스입니다.",
+     myRole:["GCP 서버 배포","라즈베리파이 센서 연동과 백엔드 통신","백엔드 PR 리뷰와 협업 도구 관리"],
+     stack:["Java","Spring Boot","MySQL","Redis","GCP"],
+     details:[
+       {h:"요구사항 정의",b:["학교 내 혼합 배출 문제를 줄이고 올바른 분리수거를 유도"]},
+       {h:"서비스 흐름",b:["폐기물 촬영·분류 → 라즈베리파이·서버 통신 → 분리수거 기록·포인트 제공"]},
+       {h:"데이터 설계",b:["Spring Boot·MySQL·Redis 기반 서비스"]},
+       {h:"회고",b:["수동 이미지 빌드와 업로드가 반복되어 배포 시간이 소모됨","다음 프로젝트에서 GitHub Actions·Jenkins 자동화를 도입하는 계기가 됨"]}
+     ],awards:["탄소중립 아카데미 우수상 (3등) · 2025.06"]}
+  ],
+  awards:[
+    {date:"2025.06",name:"탄소중립 아카데미",grade:"우수상 (3등)",desc:"PRIMERO 팀으로 수상. 폐기물 이미지 분류와 분리수거 포인트를 연결한 서비스에서 GCP 배포와 라즈베리파이 연동을 담당했습니다."},
+    {date:"2025.05",name:"I-PAC 알고리즘 대회",grade:"우수상",desc:"CTP 알고리즘 학술 동아리 활동을 바탕으로 참가한 알고리즘 대회에서 수상했습니다."}
+  ],
+  certificates:[
+    {date:"2025.03",name:"TOEIC Speaking AL",org:"ETS"},
+    {date:"2024.12",name:"정보처리기사",org:"한국산업인력공단"},
+    {date:"2024.09",name:"SQLD (SQL 개발자)",org:"한국데이터산업진흥원"}
+  ],
+  education:[
+    {date:"2025.09 - 2026.02",status:"수료",school:"부스트캠프 AI Tech 8기",major:"NLP 트랙",
+     points:["ODQA, 수능형 문제 풀이, 로컬 멀티모달 검색 팀 프로젝트 수행"]},
+    {date:"2019.03 - 2025.08",status:"졸업",school:"인하대학교",major:"컴퓨터공학 전공 · 학점 3.72 / 4.5",
+     points:["INHA-EEUM, PRIMERO 팀 프로젝트 수행"]},
+    {date:"2025.07 - 2025.08",status:"특강",school:"삼성전자 DX 부문",major:"하계 SW 역량강화 특강",points:[]},
+    {date:"2024.06 - 2025.06",status:"온라인 강의",school:"인프런",major:"Spring 강의 수강",
+     points:["Spring 기반 백엔드 개발 학습"]},
+    {date:"2020.03 - 2024.08",status:"학술 동아리",school:"CTP",major:"알고리즘 학술 동아리",
+     points:["알고리즘 스터디 모임과 대회 참여","I-PAC 알고리즘 대회 우수상 (2025.05)"]},
+    {date:"2020.03 - 2022.05",status:"개발 동아리",school:"아이그루스",major:"개발 동아리",
+     points:["백엔드 스터디와 팀 프로젝트 진행"]}
+  ]
+};
+
+const ICON={
+  github:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0012 .3z"/></svg>',
+  email:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'
+};
+/* 배포·운영 경험이 드러나는 프로젝트를 앞에 배치 */
+DATA.projects=[3,4,0,1,2].map(i=>DATA.projects[i]);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const P=DATA.profile;
+
+/* hero socials */
+document.getElementById('heroSocials').innerHTML=
+  `<a href="${P.github}" target="_blank" rel="noopener">${ICON.github}<span>github.com/${P.githubId}</span></a>`+
+  `<a href="mailto:${P.email}">${ICON.email}<span>${P.email}</span></a>`;
+
+/* competency art */
+const ART={
+  deploy:`<svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice"><rect width="400" height="200" fill="var(--accent-soft)"/>
+    <g font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">
+    ${['commit','build','test','deploy'].map((t,i)=>`<rect x="${30+i*90}" y="78" width="70" height="44" rx="10" fill="var(--card)" stroke="var(--accent)" stroke-width="${i===3?2.5:1.2}"/><text x="${65+i*90}" y="104" text-anchor="middle" fill="var(--accent)">${t}</text>${i<3?`<path d="M${101+i*90} 100h18" stroke="var(--accent)" stroke-width="2"/><path d="M${115+i*90} 95l5 5-5 5" fill="none" stroke="var(--accent)" stroke-width="2"/>`:''}`).join('')}
+    </g><text x="30" y="160" font-family="JetBrains Mono,monospace" font-size="11" fill="var(--ink-soft)">GitHub Actions · Jenkins → AWS</text></svg>`,
+  iot:`<svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice"><rect width="400" height="200" fill="#161d29"/>
+    <g font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#ff9a73">
+    <rect x="28" y="80" width="62" height="40" rx="8" fill="none" stroke="#e8562d" stroke-width="1.6"/><text x="59" y="104" text-anchor="middle">ESP32</text>
+    <rect x="128" y="80" width="62" height="40" rx="8" fill="none" stroke="#e8562d" stroke-width="1.6"/><text x="159" y="104" text-anchor="middle">MQTT</text>
+    <rect x="228" y="80" width="70" height="40" rx="8" fill="none" stroke="#ff9a73" stroke-width="2.2"/><text x="263" y="104" text-anchor="middle">FastAPI</text>
+    <rect x="320" y="80" width="56" height="40" rx="8" fill="none" stroke="#e8562d" stroke-width="1.6"/><text x="348" y="104" text-anchor="middle">TSDB</text></g>
+    <g stroke="#e8562d" stroke-width="1.5" stroke-dasharray="4 4" opacity=".8"><path d="M90 100h38M190 100h38M298 100h22"/></g>
+    <polyline points="28,170 70,160 110,166 150,150 190,158 230,140 270,152 310,136 376,146" fill="none" stroke="#3a4658" stroke-width="2"/>
+    <circle cx="230" cy="140" r="4" fill="#ff9a73"/></svg>`,
+  search:`<svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice"><rect width="400" height="200" fill="var(--chip)"/>
+    <rect x="40" y="44" width="230" height="34" rx="17" fill="var(--card)" stroke="var(--line)"/>
+    <circle cx="62" cy="61" r="7" fill="none" stroke="var(--accent)" stroke-width="2"/><path d="M67 66l5 5" stroke="var(--accent)" stroke-width="2"/>
+    <text x="82" y="65" font-family="Noto Sans KR,sans-serif" font-size="12" fill="var(--ink-soft)">질문 → Retriever → Reader</text>
+    ${[0,1,2].map(i=>`<rect x="40" y="${96+i*30}" width="${200-i*40}" height="18" rx="5" fill="var(--accent)" opacity="${.85-i*.25}"/><text x="${250-i*40}" y="${109+i*30}" font-family="JetBrains Mono,monospace" font-size="10" fill="var(--ink-soft)">top-${i+1}</text>`).join('')}
+    <g fill="var(--accent)" opacity=".5">${[[320,60],[340,90],[300,110],[352,130],[318,150],[336,62]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="4"/>`).join('')}</g></svg>`
+};
+document.getElementById('compGrid').innerHTML=DATA.competencies.map(c=>
+  `<article class="comp-card"><div class="thumb ${c.theme==='dark'?'dark':''}">${ART[c.art]}</div><span class="comp-tag">${esc(c.tag)}</span><h3>${esc(c.title)}</h3><p>${esc(c.desc)}</p></article>`).join('');
+
+/* tech */
+const CATN=Object.fromEntries(DATA.cats);
+document.getElementById('techFilters').innerHTML=DATA.cats.map(([k,l],i)=>`<button type="button" id="f-${k}" data-k="${k}" class="${i?'':'on'}" aria-pressed="${i?'false':'true'}">${l}</button>`).join('');
+/* 로고: 아래 내장 경로를 먼저 그리고, simple-icons(jsDelivr)를 불러오면 공식 로고로 교체. 둘 다 없으면 이니셜 타일 */
+const FB={
+  docker:"M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 0 0 .186-.186V3.574a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 0 0 .185-.186V6.29a.185.185 0 0 0-.185-.185H5.136a.186.186 0 0 0-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 0 0 .185-.185V9.006a.185.185 0 0 0-.185-.186h-2.12a.186.186 0 0 0-.185.185v1.888c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 0 0-.75.748 11.376 11.376 0 0 0 .692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137a16.09 16.09 0 0 0 2.93-.266 12.099 12.099 0 0 0 3.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288z",
+  java:"M8.85 18.56s-.92.53.65.71c1.9.22 2.87.19 4.96-.21 0 0 .55.35 1.32.65-4.7 2.01-10.63-.12-6.93-1.15M8.28 15.96s-1.03.76.54.93c2.03.21 3.63.22 6.4-.31 0 0 .38.39.99.6-5.68 1.66-12.01.13-7.93-1.22M13.12 11.55c1.16 1.34-.3 2.54-.3 2.54s2.95-1.52 1.6-3.43c-1.27-1.78-2.24-2.66 3.02-5.72 0 0-8.24 2.06-4.32 6.61M19.33 20.5s.68.56-.75.99c-2.71.82-11.29 1.07-13.68.03-.86-.37.75-.9 1.26-1 .53-.12.83-.1.83-.1-.95-.67-6.17 1.32-2.65 1.89 9.62 1.56 17.53-.7 14.99-1.81M9.29 13.26s-4.38 1.04-1.55 1.42c1.2.16 3.58.12 5.79-.06 1.81-.15 3.63-.48 3.63-.48s-.64.28-1.1.6c-4.45 1.17-13.04.62-10.57-.57 2.09-1.01 3.8-.9 3.8-.9M17.05 17.61c4.52-2.35 2.43-4.61.97-4.3-.36.07-.51.14-.51.14s.13-.2.37-.28c2.76-.97 4.88 2.86-.93 4.58 0 0 .07-.06.1-.14M14.4.8s2.5 2.5-2.37 6.35c-3.91 3.08-.89 4.84 0 6.85-2.29-2.06-3.96-3.88-2.84-5.57C10.83 6.13 15.41 4.95 14.4.8M9.73 23.91c4.34.28 11-.15 11.15-2.2 0 0-.3.78-3.59 1.39-3.7.7-8.26.62-10.97.17 0 0 .55.46 3.41.64",
+  spring:"M21.855 1.734a10.98 10.98 0 0 1-1.27 2.225A11.976 11.976 0 1 0 3.28 20.408l.44.395a11.97 11.97 0 0 0 19.686-8.911c.31-3.088-.6-6.994-1.55-10.158zM5.744 20.55a1.02 1.02 0 0 1-1.437.135 1.02 1.02 0 0 1-.135-1.438 1.02 1.02 0 0 1 1.438-.135c.44.361.5 1 .134 1.438zm16.06-3.544c-2.888 3.855-9.09 2.558-13.06 2.744 0 0-.706.042-1.415.16 0 0 .267-.115.61-.24 2.79-.968 4.107-1.16 5.804-2.03 3.188-1.62 6.355-5.166 7.01-8.85-1.21 3.542-4.887 6.59-8.236 7.828-2.293.845-6.437 1.667-6.437 1.667l-.168-.09c-2.82-1.373-2.907-7.484 2.23-9.45 2.25-.865 4.402-.39 6.83-.968 2.59-.616 5.588-2.558 6.806-5.094 1.364 4.05 3.004 10.386.422 13.363z",
+  redis:"M10.5 2.661l.54.997-1.797.644 2.409.218.748 1.246.467-1.121 2.077-.208-1.61-.613 1.028-.997-1.61.717-1.653-.997.653-.997-1.35.997.997-1.049zm7.203 5.936l-6.106 2.409-1.578-3.469-3.926 1.567 1.578 3.469-6.106 2.409 9.646 3.926 9.646-3.926-2.72-1.062zm2.077 6.334L11.6 18.318 3.417 14.931l-1.578.644 9.646 3.926 9.646-3.926z"
+};
+const iconSvg=(d,c)=>`<svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="${d}" fill="${c}"/></svg>`;
+document.getElementById('techGrid').innerHTML=DATA.tech.map((t,i)=>
+  `<div class="tech-card" data-cat="${t.cat}"><div class="logo" id="logo-${i}">${t.fb&&FB[t.fb]?iconSvg(FB[t.fb],t.c):`<span class="mono" style="background:${t.c}">${esc(t.m)}</span>`}</div><span>${esc(t.name)}</span><small>${esc(CATN[t.cat])}</small></div>`).join('');
+import('https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/+esm').then(m=>{
+  DATA.tech.forEach((t,i)=>{const ic=m[t.si];if(ic&&ic.path)document.getElementById('logo-'+i).innerHTML=iconSvg(ic.path,'#'+ic.hex)});
+}).catch(()=>{});
+document.getElementById('techFilters').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;
+  document.querySelectorAll('#techFilters button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});
+  document.querySelectorAll('.tech-card').forEach(c=>{const hit=k==='all'||c.dataset.cat===k;c.classList.toggle('dim',!hit);c.classList.toggle('pick',k!=='all'&&hit)});
+});
+
+/* timelines */
+const bul=a=>a&&a.length?`<ul class="bul">${a.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>`:'';
+document.getElementById('expTimeline').innerHTML=DATA.experience.map(x=>
+  `<div class="tl-item"><div class="tl-head"><span class="tl-date">${esc(x.date)}</span><span class="tl-org">${esc(x.org)}</span></div><div class="tl-role">${esc(x.role)}</div><p class="tl-desc">${esc(x.desc)}</p>${bul(x.points)}</div>`).join('');
+document.getElementById('awardTimeline').innerHTML=DATA.awards.map(a=>
+  `<div class="tl-item"><div class="tl-head"><span class="tl-date">${esc(a.date)}</span><span class="tl-org">${esc(a.name)}</span></div><span class="grade">${esc(a.grade)}</span><p class="tl-desc">${esc(a.desc)}</p></div>`).join('');
+document.getElementById('certTimeline').innerHTML=DATA.certificates.map(c=>
+  `<div class="tl-item"><div class="tl-head"><span class="cert-date">${esc(c.date)}</span><span class="tl-org">${esc(c.name)}</span></div><div class="cert-org">${esc(c.org)}</div></div>`).join('');
+document.getElementById('eduList').innerHTML=DATA.education.map(e=>
+  `<div class="edu-row"><div class="edu-when"><span class="date">${esc(e.date)}</span><span class="tag">${esc(e.status)}</span></div><div class="edu-body"><h3>${esc(e.school)}</h3><div class="major">${esc(e.major)}</div>${bul(e.points)}</div></div>`).join('');
+
+/* projects */
+document.getElementById('projGrid').innerHTML=DATA.projects.map((p,i)=>
+  `<button type="button" class="proj-card" data-i="${i}" id="proj-${i}">
+    <div class="proj-top"><div class="proj-icon">${esc(p.mono)}</div>${p.awards.length?`<span class="proj-badge">수상 ${p.awards.length}</span>`:''}</div>
+    <h3>${esc(p.title)}</h3><div class="tagline">${esc(p.tagline)}</div><p class="body">${esc(p.cardBody)}</p>
+    <div class="proj-meta"><span>${esc(p.period.split(' ~ ')[0].slice(0,7))} – ${esc(p.period.split(' ~ ')[1].slice(0,7))}</span><span class="more">자세히 보기 →</span></div>
+  </button>`).join('');
+
+const ov=document.getElementById('overlay'),mb=document.getElementById('mBody');let lastFocus=null;
+function openP(i){
+  const p=DATA.projects[i];lastFocus=document.activeElement;
+  mb.innerHTML=`<div class="m-icon">${esc(p.mono)}</div>
+   <h2 class="m-title" id="mTitle">${esc(p.title)}</h2>
+   <div class="m-tagrow"><span class="m-tagline">${esc(p.tagline)}</span>${p.github?`<a class="m-link" href="${p.github}" target="_blank" rel="noopener">${ICON.github}GitHub</a>`:''}</div>
+   <div class="m-meta"><div><div class="label">기간</div><div class="val">${esc(p.period)}</div></div><div><div class="label">역할</div><div class="val">${esc(p.position)}</div></div><div><div class="label">구성</div><div class="val">${esc(p.members)}</div></div></div>
+   <div class="m-label">요약</div><p class="m-summary">${esc(p.summary)}</p>
+   <div class="m-label">담당 업무</div><ul class="m-role">${p.myRole.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+   <div class="m-label">사용 기술</div><div class="m-stack">${p.stack.map(s=>`<span>${esc(s)}</span>`).join('')}</div>
+   <div class="m-div"></div>
+   <h3 class="m-sec">프로젝트 진행 과정</h3>
+   ${p.details.map((d,k)=>`<div class="m-detail"><span class="num">${String(k+1).padStart(2,'0')}</span><div><h4>${esc(d.h)}</h4>${bul(d.b)}</div></div>`).join('')}
+   ${p.awards.length?`<div class="m-div"></div><div class="m-awards-title">AWARDS</div><ul class="m-awards">${p.awards.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`:''}`;
+  ov.classList.add('open');ov.setAttribute('aria-hidden','false');document.body.classList.add('locked');
+  ov.querySelector('.modal').scrollTop=0;document.getElementById('mClose').focus();
+}
+function closeP(){ov.classList.remove('open');ov.setAttribute('aria-hidden','true');document.body.classList.remove('locked');if(lastFocus)lastFocus.focus()}
+document.getElementById('projGrid').addEventListener('click',e=>{const c=e.target.closest('.proj-card');if(c)openP(+c.dataset.i)});
+document.getElementById('mClose').addEventListener('click',closeP);
+ov.addEventListener('click',e=>{if(e.target===ov)closeP()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov.classList.contains('open'))closeP()});
+
+/* contact */
+document.getElementById('contactMethods').innerHTML=
+  `<div class="cm"><span class="cm-ic">${ICON.email}</span><span class="val" id="emailVal">${P.email}</span><button type="button" class="copy" id="copyEmail">복사</button></div>`+
+  `<div class="cm"><span class="cm-ic">${ICON.github}</span><a href="${P.github}" target="_blank" rel="noopener">github.com/${P.githubId}</a></div>`;
+document.getElementById('copyEmail').addEventListener('click',e=>{
+  const b=e.currentTarget;
+  const done=()=>{b.textContent='복사됨';setTimeout(()=>b.textContent='복사',1600)};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('emailVal'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨'};
+  try{navigator.clipboard.writeText(P.email).then(done,fallback)}catch(_){fallback()}
+});
+
+/* nav active state */
+const links=[...document.querySelectorAll('nav a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+function onScroll(){let cur=-1;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<160)cur=i});links.forEach((a,i)=>a.classList.toggle('active',i===cur))}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+</script>
+</body>
+</html>
